@@ -1,0 +1,127 @@
+body {
+    /*弹性布局*/
+    display: flex;
+    /*竖轴方向居中对齐弹性盒的各项<div>元素*/
+    align-items: center;
+    /*横轴方向居中对齐弹性盒的各项<div>元素*/
+    justify-content: center;
+    /*元素的最小高度*/
+    min-height: 100vh;
+    background-image: url("picture/login_container_bg_02.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    /*background-size: 100% 100%;*/
+    background-position: center;
+    flex-direction: column;
+}
+
+
+
+.drag-area {
+    border: 2px #ffffff;
+    height: 500px;
+    width: 700px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /*定义了主轴的方向，指明内部元素的排列顺序https://developer.mozilla.org/zh-CN/docs/Web/CSS/flex-direction*/
+    flex-direction: column;
+    /*background: #5256ad;*/
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
+.drag-area .icon {
+    font-size: 100px;
+    color: #5256ad;
+}
+
+.drag-area header {
+    font-size: 30px;
+    font-weight: 500;
+    color: #5256ad;
+}
+
+.drag-area span {
+    font-size: 25px;
+    font-weight: 500;
+    color: #5256ad;
+    /*为给定元素设置所有四个（上下左右）方向的外边距属性*/
+    margin: 10px 0 10px 0;
+}
+
+.drag-area button {
+    padding: 10px 25px;
+    font-size: 20px;
+    background: #5256ad;
+    border: none;
+    outline: none;
+    font-weight: 500;
+    border-radius: 10px;
+    color: #ffffff;
+    /*设置光标的类型*/
+    cursor: pointer;
+}
+
+.rule {
+    position: relative;
+    left: 27%;
+    top: 5%;
+}
+.rule li {
+    font-size: 20px;
+    color: #5256ad;
+}
+
+.notice {
+    border: 2px #ffffff;
+    height: 150px;
+    width: 700px;
+    border-radius: 10px;
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+.blank {
+    height: 25px;
+    width: 700px;
+}
+
+footer {
+    height: 10%;
+    width: 100%;
+    position: fixed;
+    bottom: 0;
+    background-color: rgba(82, 86, 173, 0.8);
+}
+
+footer .foot {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+footer .foot div {
+    height: 25%;
+    position: absolute;
+    text-align: center;
+    vertical-align: center;
+    margin: auto;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    color: white;
+}
+
+#logo {
+    position: absolute;
+    top: 3%;
+    left: 3%;
+    height: 9%;
+    /*display: block;*/
+    /*margin: 0 auto;*/
+}
+
+@media only screen and (max-width: 767px) {
+    
+}

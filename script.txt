@@ -1,0 +1,120 @@
+const client = new OSS({
+    region: '', region of oss
+    accessKeyId: '', // your accessKeyId
+    accessKeySecret: '', // your accessKeySecret
+    //stsToken:
+    bucket: "", // bucket of oss
+})
+
+let data;
+// 创建并填写Blob数据。
+//const data = new Blob(['Hello OSS']);
+// 创建并填写OSS Buffer内容。
+//const data = new OSS.Buffer(['Hello OSS']);
+
+const upload = document.getElementById("upload");//获取上传对象
+
+//const headers = {
+// 指定该Object被下载时网页的缓存行为。
+//'Cache-Control': 'no-cache',
+// 指定该Object被下载时的名称。
+// 'Content-Disposition': 'oss_download.txt',
+// 指定该Object被下载时的内容编码格式。
+// 'Content-Encoding': 'UTF-8',
+// 指定过期时间。
+// 'Expires': 'Wed, 08 Jul 2022 16:57:01 GMT',
+// 指定Object的存储类型。
+// 'x-oss-storage-class': 'Standard',
+// 指定Object的访问权限。
+// 'x-oss-object-acl': 'private',
+// 设置Object的标签，可同时设置多个标签。
+// 'x-oss-tagging': 'Tag1=1&Tag2=2',
+// 指定CopyObject操作时是否覆盖同名目标Object。此处设置为true，表示禁止覆盖同名Object。
+// 'x-oss-forbid-overwrite': 'true',
+//};
+
+function restriction(target) {
+    var fileSize = 0;
+    var fileTypes = [".mp4", ".png", ".jpg"];//可选择的文件后缀
+    var filePath = target.value;//文件路径
+    var fileMaxSize = 1024 * 200;//限制文件最大占用空间
+    if (filePath) {
+        var isAccord = false;//是否符合要求(boolean)
+        var fileEnd = filePath.substring(filePath.indexOf("."));//提取文件后缀名
+        //string.substring(from, to):from为要提取的子串的第一个字符的下标，to为要提取字串的最后一个字符的下标+1，其中from为必需，to可选，默认值为末尾
+        if (fileTypes && fileTypes.length > 0) {
+            for (var i = 0; i < fileTypes.length; i++) {
+                if (fileTypes[i] == fileEnd) {
+                    isAccord = true;
+                    break;
+                }
+            }
+        }
+        //查找该格式是否符合规定
+        if (!isAccord) {
+            alert("不接受此文件类型！");
+            target.value = "";
+            return false;
+        }
+        //对于不符合规定的文件，提示弹窗
+    } else {
+        return false;
+    }
+    fileSize = target.files[0].size;
+    var size = fileSize / 1024;//当前文件大小
+    if (size > fileMaxSize) {
+        alert("附件大小不能大于" + fileMaxSize / 1024 + "M!");
+        target.value = "";
+        return false;
+    }
+    //判断被上传问件的大小，文件过大则弹窗提示
+    var path = filePath.split('\\');//对路径字符串以\为标记进行分割
+    var name = path[path.length - 1];//获取文件名
+    var insert = document.getElementById("filename");//获取被插入的标签
+    insert.style.display = 'block';
+    insert.innerHTML = `${name}`;//在网页端显示被上传文件名
+}
+
+async function putObject(data, name) {
+    if (data) {
+        try {
+            // 填写Object完整路径。Object完整路径中不能包含Bucket名称。
+            // 您可以通过自定义文件名（例如exampleobject.txt）或文件完整路径（例如exampledir/exampleobject.txt）的形式实现将数据上传到当前Bucket或Bucket中的指定目录。
+            // data对象可以自定义为file对象、Blob数据或者OSS Buffer。
+
+            const result = await client.put(
+                ("video-2023/" + name),
+                data
+                //{headers}
+            );
+            console.log(result);
+        } catch (e) {
+            console.log(e);
+        }
+        var wait = document.getElementById("circle");
+        wait.style.display = 'none';//隐藏加载符号
+        const no = document.getElementById("file");
+        no.outerHTML = no.outerHTML;//取消当前文件选中
+        var insert = document.getElementById("filename");
+        insert.style.display = 'none';//取消文件名称显示
+        insert.innerHTML = "";
+        setTimeout("alert(\"上传成功!\")", "500");//上传完成后弹窗提示上传成功
+    } else {
+        alert("上传失败!");
+    }
+}//上传函数，该函数为异步函数
+
+//addEventListener(event, function, useCapture)中event为监听事件，function为事件触发时执行的函数，useCapture为可选变量，非必需
+upload.addEventListener("click", () => {
+    if (document.getElementById("file").files[0]) {
+        data = document.getElementById("file").files[0];
+        var path = document.getElementById("file").value.split('\\');
+        var name = path[path.length - 1];
+        var wait = document.getElementById("circle");
+        wait.style.display = 'block';
+        putObject(data, name);//调用上传函数，该函数为异步函数
+    } else {
+        alert("未选择文件!");//为选择文件时点击上传弹窗提示未选择文件
+    }
+});
+//() => {}为箭头函数，{}中为函数体

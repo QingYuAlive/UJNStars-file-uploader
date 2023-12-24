@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>”青春榜样·济大繁星“相关文件上传</title>
+    <link rel="icon" type="image/x-icon" href="picture/logo.ico"/>
+    <link rel="stylesheet" href="font-awesome-4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link type="text/css" rel="stylesheet" href="../../resources/bootstrap-2/css/bootstrap.css">
+    <script type="text/javascript" src="../../resources/bootstrap-2/js/bootstrap.js"></script>
+    <script type="text/javascript" src="../../resources/jQuery/jquery-1.12.4.min.js"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+</head>
+<body>
+<img id="logo" src="picture/logo.png" alt="logo">
+<div class="drag-area">
+    <div class="icon"><i class="fa fa-cloud-upload"></i></div>
+    <header>Choose Your File</header>
+    <span>And</span>
+    <span>Upload</span>
+    <span>
+            <!--    选择文件-->
+            <button class="btn btn-name" onclick="file.click()">Choose File</button>
+            <input id="file" type="file" name="file" accept="video/mp4" style="display: none"
+                   onchange="restriction(this);"/>
+            <!--    上传按钮-->
+            <button id="upload">Upload</button>
+    </span>
+    <span>
+        <!--        上传中的文件名-->
+        <div id="filename" style="display: none"></div>
+    </span>
+    <span>
+        <!--        上传加载图标-->
+        <div id="circle" style="display: none"><i class="fa fa-spinner fa-pulse"></i></div>
+    </span>
+</div>
+<div class="blank"></div>
+<!--注意事项-->
+<div class="notice">
+    <ul class="rule">
+        <li>文件命名格式：学院-班级-姓名</li>
+        <li>文件大小不得超过200M</li>
+        <li>文件类型：mp4</li>
+        <li>请勿多次上传同一个文件</li>
+    </ul>
+</div>
+<footer>
+    <div class="foot">
+        <div>
+            CopyRight © 济南大学学工在线 All Right Reserved
+        </div>
+    </div>
+</footer>
+<!--    导入SDK文件-->
+<script type="text/javascript" src="https://gosspublic.alicdn.com/aliyun-oss-sdk-6.16.0.min.js"></script>
+<script type="text/javascript" src="script.js"></script>
+</body>
+</html>
